@@ -165,6 +165,7 @@ async function createApp(
   keys?: Prisma.AppCreateInput["keys"],
   isTemplate?: boolean
 ) {
+  const enabledApps = ["googlecalendar", "whatsapp"];
   try {
     const foundApp = await prisma.app.findFirst({
       /**
@@ -190,7 +191,13 @@ async function createApp(
     });
 
     // We need to enable seeded apps as they are used in tests.
-    const data = { slug, dirName, categories, keys, enabled: true };
+    const data = {
+      slug,
+      dirName,
+      categories,
+      keys,
+      enabled: enabledApps.includes(dirName),
+    };
 
     if (!foundApp) {
       await prisma.app.create({

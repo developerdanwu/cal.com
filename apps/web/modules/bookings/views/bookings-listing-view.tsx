@@ -8,6 +8,7 @@ import { WipeMyCalActionButton } from "@calcom/app-store/wipemycalother/componen
 import dayjs from "@calcom/dayjs";
 import { FilterToggle } from "@calcom/features/bookings/components/FilterToggle";
 import { FiltersContainer } from "@calcom/features/bookings/components/FiltersContainer";
+import { NewBookingButton } from "@calcom/features/bookings/components/NewBookingButton";
 import type { filterQuerySchema } from "@calcom/features/bookings/lib/useFilterQuery";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import Shell from "@calcom/features/shell/Shell";
@@ -149,6 +150,7 @@ export default function Bookings() {
     <Shell
       withoutMain={false}
       hideHeadingOnMobile
+      CTA={<NewBookingButton />}
       heading={t("bookings")}
       subtitle={t("bookings_description")}
       title="Bookings"

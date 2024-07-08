@@ -1,4 +1,5 @@
 {
+  "create-booking": "Create Booking",
   "identity_provider": "Identity provider",
   "trial_days_left": "You have $t(day, {\"count\": {{days}} }) left on your PRO trial",
   "day_one": "{{count}} day",
@@ -736,6 +737,7 @@
   "plan_upgrade_instructions": "You can <1>upgrade here</1>.",
   "event_types_page_title": "Event Types",
   "event_types_page_subtitle": "Create events to share for people to book on your calendar.",
+  "add_new_booking": "Add new booking",
   "new": "New",
   "new_event_type_btn": "New event type",
   "new_event_type_heading": "Create your first event type",
