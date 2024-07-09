@@ -17,8 +17,7 @@ import { DuplicateDialog } from "@calcom/features/eventtypes/components/Duplicat
 import { TeamsFilter } from "@calcom/features/filters/components/TeamsFilter";
 import { getTeamsFiltersFromQuery } from "@calcom/features/filters/lib/getTeamsFiltersFromQuery";
 import Shell from "@calcom/features/shell/Shell";
-import { APP_NAME } from "@calcom/lib/constants";
-import { WEBSITE_URL } from "@calcom/lib/constants";
+import { APP_NAME, WEBSITE_URL } from "@calcom/lib/constants";
 import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import useMediaQuery from "@calcom/lib/hooks/useMediaQuery";
@@ -33,6 +32,7 @@ import { trpc, TRPCClientError } from "@calcom/trpc/react";
 import type { UserProfile } from "@calcom/types/UserProfile";
 import {
   Alert,
+  ArrowButton,
   Avatar,
   Badge,
   Button,
@@ -56,7 +56,6 @@ import {
   Skeleton,
   Switch,
   Tooltip,
-  ArrowButton,
   UserAvatarGroup,
 } from "@calcom/ui";
 

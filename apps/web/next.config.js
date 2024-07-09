@@ -179,6 +179,7 @@ const nextConfig = {
     optimizePackageImports: ["@calcom/ui"],
     instrumentationHook: true,
   },
+  swcMinify: true,
   i18n: {
     ...i18n,
     localeDetection: false,
