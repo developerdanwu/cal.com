@@ -9,6 +9,7 @@ import { defaultResponder } from "@calcom/lib/server";
 async function handler(req: NextApiRequest & { userId?: number }, res: NextApiResponse) {
   const userIp = getIP(req);
 
+  console.log("REQUESTTTT", req);
   await checkRateLimitAndThrowError({
     rateLimitingType: "core",
     identifier: userIp,

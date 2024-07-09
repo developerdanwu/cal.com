@@ -8,6 +8,7 @@ export const filterQuerySchema = z.object({
   userIds: queryNumberArray.optional(),
   status: z.enum(["upcoming", "recurring", "past", "cancelled", "unconfirmed"]).optional(),
   eventTypeIds: queryNumberArray.optional(),
+  search: z.string().optional(),
 });
 
 export function useFilterQuery() {

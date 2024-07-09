@@ -70,6 +70,34 @@ export async function getBookings({
 }) {
   // TODO: Fix record typing
   const bookingWhereInputFilters: Record<string, Prisma.BookingWhereInput> = {
+    search: {
+      AND: [
+        {
+          OR: [
+            {
+              attendees: {
+                some: {
+                  email: {
+                    contains: filters.search,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+            {
+              attendees: {
+                some: {
+                  name: {
+                    contains: filters.search,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
     teamIds: {
       AND: [
         {
