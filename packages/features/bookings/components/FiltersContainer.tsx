@@ -1,5 +1,5 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import React from "react";
+import React, { useState } from "react";
 
 import { PeopleFilter } from "@calcom/features/bookings/components/PeopleFilter";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
@@ -16,14 +16,14 @@ export interface FiltersContainerProps {
 
 export function FiltersContainer({ isFiltersVisible }: FiltersContainerProps) {
   const [animationParentRef] = useAutoAnimate<HTMLDivElement>();
-  const { removeAllQueryParams } = useFilterQuery();
+  const { removeAllQueryParams, data: query } = useFilterQuery();
+  const [input, setInput] = useState(() => query.search || "");
   const { t } = useLocale();
-
   return (
     <div ref={animationParentRef}>
       {isFiltersVisible ? (
         <div className="no-scrollbar flex w-full space-x-2 overflow-x-scroll p-2 rtl:space-x-reverse">
-          <SearchFilter />
+          <SearchFilter input={input} setInput={setInput} />
           <PeopleFilter />
           <EventTypeFilter />
           <TeamsFilter />
@@ -33,6 +33,7 @@ export function FiltersContainer({ isFiltersVisible }: FiltersContainerProps) {
               type="button"
               onClick={() => {
                 removeAllQueryParams();
+                setInput("");
               }}>
               {t("remove_filters")}
             </Button>

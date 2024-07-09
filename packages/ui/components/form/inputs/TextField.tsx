@@ -87,13 +87,16 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(function
     readOnly,
     showAsteriskIndicator,
     onClickAddon,
+    value,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     t: __t,
     dataTestid,
     ...passThrough
   } = props;
 
-  const [inputValue, setInputValue] = useState<string>("");
+  const [uncontrolledInputValue, setUncontrolledInputValue] = useState<string>("");
+
+  const inputValue = value === undefined ? uncontrolledInputValue : value;
 
   return (
     <div className={classNames(containerClassName)}>
@@ -139,7 +142,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(function
             {...passThrough}
             {...(type == "search" && {
               onChange: (e) => {
-                setInputValue(e.target.value);
+                setUncontrolledInputValue(e.target.value);
                 props.onChange && props.onChange(e);
               },
               value: inputValue,
@@ -160,7 +163,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(function
               name="x"
               className="text-subtle absolute top-2.5 h-4 w-4 cursor-pointer ltr:right-2 rtl:left-2"
               onClick={(e) => {
-                setInputValue("");
+                setUncontrolledInputValue("");
                 props.onChange && props.onChange(e as unknown as React.ChangeEvent<HTMLInputElement>);
               }}
             />
@@ -168,6 +171,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(function
         </div>
       ) : (
         <Input
+          value={value}
           id={id}
           type={type}
           placeholder={placeholder}

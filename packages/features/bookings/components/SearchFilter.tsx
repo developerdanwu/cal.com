@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { useDebounce } from "@calcom/lib/hooks/useDebounce";
 import { Icon, InputField } from "@calcom/ui";
 
-export const SearchFilter = () => {
+export const SearchFilter = ({ input, setInput }: { input: string; setInput: (value: string) => void }) => {
   const { setQuery, data: query, removeByKey } = useFilterQuery();
-  const [input, setInput] = useState("");
   const debouncedSearchInput = useDebounce(input, 600);
 
   useEffect(() => {
@@ -20,8 +19,8 @@ export const SearchFilter = () => {
   return (
     <InputField
       addOnLeading={<Icon name="search" className="text-subtle h-4 w-4" />}
-      defaultValue={query?.search}
       type="search"
+      value={input}
       className="w-48"
       onChange={(e) => {
         setInput(e.target.value);
