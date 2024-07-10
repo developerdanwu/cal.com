@@ -3,7 +3,7 @@ import type { Prisma } from "@calcom/prisma/client";
 import { BookingStatus } from "@calcom/prisma/enums";
 import { getBookings } from "@calcom/trpc/server/routers/viewer/bookings/get.handler";
 
-type InputByStatus = "upcoming" | "recurring" | "past" | "cancelled" | "unconfirmed";
+type InputByStatus = "all" | "upcoming" | "recurring" | "past" | "cancelled" | "unconfirmed";
 type GetOptions = {
   ctx: {
     user: { id: number; email: string };
@@ -17,6 +17,7 @@ type GetOptions = {
     teamIds?: number[] | undefined;
     userIds?: number[] | undefined;
     eventTypeIds?: number[] | undefined;
+    dateRange?: [Date, Date] | undefined;
   };
 };
 
@@ -24,6 +25,16 @@ const getAllUserBookings = async ({ ctx, filters, bookingListingByStatus, take, 
   const { prisma, user } = ctx;
 
   const bookingListingFilters: Record<typeof bookingListingByStatus, Prisma.BookingWhereInput> = {
+    all: {
+      ...(filters?.dateRange
+        ? {
+            startTime: {
+              gte: filters.dateRange[0],
+              lte: filters.dateRange[1],
+            },
+          }
+        : {}),
+    },
     upcoming: {
       endTime: { gte: new Date() },
       // These changes are needed to not show confirmed recurring events,
