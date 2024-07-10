@@ -39,6 +39,10 @@ type RecurringInfo = {
 
 const tabs: (VerticalTabItemProps | HorizontalTabItemProps)[] = [
   {
+    name: "all",
+    href: "/bookings/all",
+  },
+  {
     name: "upcoming",
     href: "/bookings/upcoming",
   },
@@ -160,7 +164,7 @@ export default function Bookings() {
           <HorizontalTabs tabs={tabs} />
           <FilterToggle setIsFiltersVisible={setIsFiltersVisible} />
         </div>
-        <FiltersContainer isFiltersVisible={isFiltersVisible} />
+        <FiltersContainer status={status} isFiltersVisible={isFiltersVisible} />
         <main className="w-full">
           <div className="flex w-full flex-col" ref={animationParentRef}>
             {query.status === "error" && (
