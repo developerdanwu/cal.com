@@ -67,14 +67,6 @@ export const KBarRoot = ({ children }: { children: React.ReactNode }) => {
     }));
     return [
       {
-        id: "workflows",
-        name: "workflows",
-        section: "workflows",
-        shortcut: ["w", "f"],
-        keywords: "workflows automation",
-        perform: () => router.push("/workflows"),
-      },
-      {
         id: "event-types",
         name: "event_types_page_title",
         section: "event_types_page_title",
@@ -161,13 +153,6 @@ export const KBarRoot = ({ children }: { children: React.ReactNode }) => {
         shortcut: ["b", "c"],
         keywords: "change modify brand color",
         perform: () => router.push("/settings/my-account/appearance"),
-      },
-      {
-        id: "teams",
-        name: "teams",
-        shortcut: ["t", "s"],
-        keywords: "add manage modify team",
-        perform: () => router.push("/settings/teams"),
       },
       {
         id: "password",

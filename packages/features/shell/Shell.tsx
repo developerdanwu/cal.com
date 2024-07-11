@@ -38,16 +38,7 @@ import VerifyEmailBanner, {
   type VerifyEmailBannerProps,
 } from "@calcom/features/users/components/VerifyEmailBanner";
 import classNames from "@calcom/lib/classNames";
-import {
-  APP_NAME,
-  DESKTOP_APP_LINK,
-  ENABLE_PROFILE_SWITCHER,
-  IS_VISUAL_REGRESSION_TESTING,
-  JOIN_DISCORD,
-  ROADMAP,
-  TOP_BANNER_HEIGHT,
-  WEBAPP_URL,
-} from "@calcom/lib/constants";
+import { APP_NAME, ENABLE_PROFILE_SWITCHER, TOP_BANNER_HEIGHT, WEBAPP_URL } from "@calcom/lib/constants";
 import { getPlaceholderAvatar } from "@calcom/lib/defaultAvatarImage";
 import { useFormbricks } from "@calcom/lib/formbricks-client";
 import getBrandColours from "@calcom/lib/getBrandColours";
@@ -64,7 +55,6 @@ import {
   Avatar,
   Button,
   ButtonOrLink,
-  Credits,
   Dropdown,
   DropdownItem,
   DropdownMenuContent,
@@ -75,19 +65,17 @@ import {
   ErrorBoundary,
   HeadSeo,
   Icon,
+  type IconName,
   Logo,
   showToast,
   SkeletonText,
   Tooltip,
   useCalcomTheme,
-  type IconName,
 } from "@calcom/ui";
-import { Discord } from "@calcom/ui/components/icon/Discord";
 import { useGetUserAttributes } from "@calcom/web/components/settings/platform/hooks/useGetUserAttributes";
 
 import { useOrgBranding } from "../ee/organizations/context/provider";
 import FreshChatProvider from "../ee/support/lib/freshchat/FreshChatProvider";
-import { TeamInviteBadge } from "./TeamInviteBadge";
 
 // need to import without ssr to prevent hydration errors
 const Tips = dynamic(() => import("@calcom/features/tips").then((mod) => mod.Tips), {
@@ -504,44 +492,6 @@ function UserDropdown({ small }: UserDropdownProps) {
                     <DropdownMenuSeparator />
                   </>
                 )}
-
-                <DropdownMenuItem>
-                  <DropdownItem
-                    CustomStartIcon={<Discord className="text-default h-4 w-4" />}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={JOIN_DISCORD}>
-                    {t("join_our_discord")}
-                  </DropdownItem>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DropdownItem StartIcon="map" target="_blank" href={ROADMAP}>
-                    {t("visit_roadmap")}
-                  </DropdownItem>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DropdownItem
-                    type="button"
-                    StartIcon="circle-help"
-                    aria-hidden="true"
-                    onClick={() => setHelpOpen(true)}>
-                    {t("help")}
-                  </DropdownItem>
-                </DropdownMenuItem>
-                {!isPlatformUser && (
-                  <DropdownMenuItem className="todesktop:hidden hidden lg:flex">
-                    <DropdownItem
-                      StartIcon="download"
-                      target="_blank"
-                      rel="noreferrer"
-                      href={DESKTOP_APP_LINK}>
-                      {t("download_desktop_app")}
-                    </DropdownItem>
-                  </DropdownMenuItem>
-                )}
-
-                <DropdownMenuSeparator />
-
                 <DropdownMenuItem>
                   <DropdownItem
                     type="button"
@@ -604,13 +554,6 @@ const navigation: NavigationItemType[] = [
     icon: "clock",
   },
   {
-    name: "teams",
-    href: "/teams",
-    icon: "users",
-    onlyDesktop: true,
-    badge: <TeamInviteBadge />,
-  },
-  {
     name: "apps",
     href: "/apps",
     icon: "grid-3x3",
@@ -644,22 +587,6 @@ const navigation: NavigationItemType[] = [
     name: MORE_SEPARATOR_NAME,
     href: "/more",
     icon: "ellipsis",
-  },
-  {
-    name: "Routing Forms",
-    href: "/apps/routing-forms/forms",
-    icon: "file-text",
-    isCurrent: ({ pathname }) => pathname?.startsWith("/apps/routing-forms/") ?? false,
-  },
-  {
-    name: "workflows",
-    href: "/workflows",
-    icon: "zap",
-  },
-  {
-    name: "insights",
-    href: "/insights",
-    icon: "bar-chart",
   },
 ];
 
@@ -1024,7 +951,6 @@ function SideBar({ bannersHeight, user, isPlatformUser = false }: SideBarProps) 
 
         {!isPlatformUser && (
           <div>
-            <Tips />
             {bottomNavItems.map((item, index) => (
               <Tooltip side="right" content={t(item.name)} className="lg:hidden" key={item.name}>
                 <ButtonOrLink
@@ -1060,7 +986,6 @@ function SideBar({ bannersHeight, user, isPlatformUser = false }: SideBarProps) 
                 </ButtonOrLink>
               </Tooltip>
             ))}
-            {!IS_VISUAL_REGRESSION_TESTING && <Credits />}
           </div>
         )}
       </aside>

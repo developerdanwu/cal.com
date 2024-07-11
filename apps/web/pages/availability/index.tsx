@@ -1,6 +1,6 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { BulkEditDefaultModal } from "@calcom/features/eventtypes/components/BulkEditDefaultModal";
@@ -14,7 +14,7 @@ import { MembershipRole } from "@calcom/prisma/enums";
 import type { RouterOutputs } from "@calcom/trpc/react";
 import { trpc } from "@calcom/trpc/react";
 import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
-import { EmptyScreen, showToast, ToggleGroup } from "@calcom/ui";
+import { EmptyScreen, showToast } from "@calcom/ui";
 
 import { QueryCell } from "@lib/QueryCell";
 
@@ -219,15 +219,6 @@ export default function AvailabilityPage() {
         subtitle={t("configure_availability")}
         CTA={
           <div className="flex gap-2">
-            <ToggleGroup
-              className="hidden md:block"
-              defaultValue={searchParams?.get("type") ?? "mine"}
-              onValueChange={(value) => {
-                if (!value) return;
-                router.push(`${pathname}?${createQueryString("type", value)}`);
-              }}
-              options={toggleGroupOptions}
-            />
             <NewScheduleButton />
           </div>
         }>

@@ -2,12 +2,12 @@ import type { TFunction } from "next-i18next";
 import { Trans } from "next-i18next";
 import { useRouter } from "next/navigation";
 import type { EventTypeSetupProps } from "pages/event-types/[type]";
-import { useMemo, useState, Suspense } from "react";
+import { Suspense, useMemo, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 
 import useLockedFieldsManager from "@calcom/features/ee/managed-event-types/hooks/useLockedFieldsManager";
 import { EventTypeEmbedButton, EventTypeEmbedDialog } from "@calcom/features/embed/EventTypeEmbed";
-import type { FormValues, AvailabilityOption } from "@calcom/features/eventtypes/lib/types";
+import type { AvailabilityOption, FormValues } from "@calcom/features/eventtypes/lib/types";
 import Shell from "@calcom/features/shell/Shell";
 import { classNames } from "@calcom/lib";
 import getPaymentAppData from "@calcom/lib/getPaymentAppData";
@@ -21,15 +21,15 @@ import {
   ButtonGroup,
   ConfirmationDialogContent,
   Dialog,
-  DropdownMenuSeparator,
   Dropdown,
+  DropdownItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   HorizontalTabs,
-  Label,
   Icon,
+  Label,
   showToast,
   Skeleton,
   Switch,
@@ -103,12 +103,12 @@ function getNavigation({
       //TODO: Handle proper translation with count handling
       info: `${installedAppsNumber} apps, ${enabledAppsNumber} ${t("active")}`,
     },
-    {
-      name: "workflows",
-      href: `/event-types/${id}?tabName=workflows`,
-      icon: "zap",
-      info: `${enabledWorkflowsNumber} ${t("active")}`,
-    },
+    // {
+    //   name: "workflows",
+    //   href: `/event-types/${id}?tabName=workflows`,
+    //   icon: "zap",
+    //   info: `${enabledWorkflowsNumber} ${t("active")}`,
+    // },
   ] satisfies VerticalTabItemProps[];
 }
 
@@ -221,14 +221,14 @@ function EventTypeSingleLayout({
       availability,
     });
 
-    if (!requirePayment) {
-      navigation.splice(3, 0, {
-        name: "recurring",
-        href: `/event-types/${formMethods.getValues("id")}?tabName=recurring`,
-        icon: "repeat",
-        info: `recurring_event_tab_description`,
-      });
-    }
+    // if (!requirePayment) {
+    //   navigation.splice(3, 0, {
+    //     name: "recurring",
+    //     href: `/event-types/${formMethods.getValues("id")}?tabName=recurring`,
+    //     icon: "repeat",
+    //     info: `recurring_event_tab_description`,
+    //   });
+    // }
     navigation.splice(1, 0, {
       name: "availability",
       href: `/event-types/${formMethods.getValues("id")}?tabName=availability`,
@@ -247,42 +247,33 @@ function EventTypeSingleLayout({
           : formMethods.getValues("scheduleName") ?? `default_schedule_name`,
     });
     // If there is a team put this navigation item within the tabs
-    if (team) {
-      navigation.splice(2, 0, {
-        name: "assignment",
-        href: `/event-types/${formMethods.getValues("id")}?tabName=team`,
-        icon: "users",
-        info: `${t(watchSchedulingType?.toLowerCase() ?? "")}${
-          isManagedEventType ? ` - ${t("number_member", { count: watchChildrenCount || 0 })}` : ""
-        }`,
-      });
-    }
-    const showWebhooks = !(isManagedEventType || isChildrenManagedEventType);
-    if (showWebhooks) {
-      if (team) {
-        navigation.push({
-          name: "instant_tab_title",
-          href: `/event-types/${eventType.id}?tabName=instant`,
-          icon: "phone-call",
-          info: `instant_event_tab_description`,
-        });
-      }
-      navigation.push({
-        name: "webhooks",
-        href: `/event-types/${formMethods.getValues("id")}?tabName=webhooks`,
-        icon: "webhook",
-        info: `${activeWebhooksNumber} ${t("active")}`,
-      });
-    }
+
+    // const showWebhooks = !(isManagedEventType || isChildrenManagedEventType);
+    // if (showWebhooks) {
+    //   if (team) {
+    //     navigation.push({
+    //       name: "instant_tab_title",
+    //       href: `/event-types/${eventType.id}?tabName=instant`,
+    //       icon: "phone-call",
+    //       info: `instant_event_tab_description`,
+    //     });
+    //   }
+    //   navigation.push({
+    //     name: "webhooks",
+    //     href: `/event-types/${formMethods.getValues("id")}?tabName=webhooks`,
+    //     icon: "webhook",
+    //     info: `${activeWebhooksNumber} ${t("active")}`,
+    //   });
+    // }
     const hidden = true; // hidden while in alpha trial. you can access it with tabName=ai
-    if (team && hidden) {
-      navigation.push({
-        name: "Cal.ai",
-        href: `/event-types/${eventType.id}?tabName=ai`,
-        icon: "sparkles",
-        info: "cal_ai_event_tab_description", // todo `cal_ai_event_tab_description`,
-      });
-    }
+    // if (team && hidden) {
+    //   navigation.push({
+    //     name: "Cal.ai",
+    //     href: `/event-types/${eventType.id}?tabName=ai`,
+    //     icon: "sparkles",
+    //     info: "cal_ai_event_tab_description", // todo `cal_ai_event_tab_description`,
+    //   });
+    // }
     return navigation;
   }, [
     t,

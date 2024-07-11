@@ -7,7 +7,7 @@ import { isValidPhoneNumber } from "libphonenumber-js";
 import dynamic from "next/dynamic";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -463,15 +463,15 @@ const EventTypePage = (props: EventTypeSetupProps & { allActiveWorkflows?: Workf
     limits: <EventLimitsTab eventType={eventType} />,
     advanced: <EventAdvancedTab eventType={eventType} team={team} />,
     instant: <EventInstantTab eventType={eventType} isTeamEvent={!!team} />,
-    recurring: <EventRecurringTab eventType={eventType} />,
+    // recurring: <EventRecurringTab eventType={eventType} />,
     apps: <EventAppsTab eventType={{ ...eventType, URL: permalink }} />,
-    workflows: props.allActiveWorkflows ? (
-      <EventWorkflowsTab eventType={eventType} workflows={props.allActiveWorkflows} />
-    ) : (
-      <></>
-    ),
-    webhooks: <EventWebhooksTab eventType={eventType} />,
-    ai: <EventAITab eventType={eventType} isTeamEvent={!!team} />,
+    // workflows: props.allActiveWorkflows ? (
+    //   <EventWorkflowsTab eventType={eventType} workflows={props.allActiveWorkflows} />
+    // ) : (
+    //   <></>
+    // ),
+    // webhooks: <EventWebhooksTab eventType={eventType} />,
+    // ai: <EventAITab eventType={eventType} isTeamEvent={!!team} />,
   } as const;
   const isObject = <T,>(value: T): boolean => {
     return value !== null && typeof value === "object" && !Array.isArray(value);
