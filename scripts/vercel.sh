@@ -55,7 +55,7 @@ else
 fi
 
 echo "calling... $VERCEL_PROJECT_ENDPOINT"
-# We update DATABASE_URL using Vercel API
+# We update POSTGRES_URL using Vercel API
 curl -f -sS -o /dev/null -X POST "$VERCEL_PROJECT_ENDPOINT" \
   -H 'Content-Type: application/json' \
   -H "Authorization: Bearer $VERCEL_TOKEN" \
@@ -63,7 +63,7 @@ curl -f -sS -o /dev/null -X POST "$VERCEL_PROJECT_ENDPOINT" \
     "target": "preview",
     "gitBranch": "'$VERCEL_GIT_COMMIT_REF'",
     "type": "encrypted",
-    "key": "DATABASE_URL",
+    "key": "POSTGRES_URL",
     "value": "'$NEW_DATABASE_URL'"
 }'
 res=$?
@@ -71,6 +71,6 @@ if test "$res" != "0"; then
   echo "the curl command failed with: $res"
   exit 0
 else
-  echo "Successfully updated DATABASE_URL"
+  echo "Successfully updated POSTGRES_URL"
   exit 1
 fi

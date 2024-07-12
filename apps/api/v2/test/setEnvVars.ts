@@ -3,7 +3,7 @@ import type { Environment } from "@/env";
 const env: Partial<Omit<Environment, "NODE_ENV">> = {
   API_URL: "http://localhost",
   API_PORT: "5555",
-  DATABASE_URL: "postgresql://postgres:@localhost:5450/calendso",
+  POSTGRES_URL: "postgresql://postgres:@localhost:5450/calendso",
   DATABASE_READ_URL: "postgresql://postgres:@localhost:5450/calendso",
   DATABASE_WRITE_URL: "postgresql://postgres:@localhost:5450/calendso",
   NEXTAUTH_SECRET: "XF+Hws3A5g2eyWA5uGYYVJ74X+wrCWJ8oWo6kAfU6O8=",

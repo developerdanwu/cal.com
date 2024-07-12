@@ -176,7 +176,7 @@ in order to build and deploy properly.
 
 ### Required
 
-DATABASE_URL=DATABASE_URL="postgresql://postgres:@localhost:5450/calendso"
+POSTGRES_URL=POSTGRES_URL="postgresql://postgres:@localhost:5450/calendso"
 
 ## Optional
 
@@ -197,7 +197,7 @@ To remove this limitation, we need to ensure that on local endpoints are request
 Go to console.cal.com
 Add a deployment or go to an existing one.
 Activate API or Admin addon
-Provide your `DATABASE_URL`
+Provide your `POSTGRES_URL`
 Now you can call api.cal.com?key=CALCOM_LICENSE_KEY, which will connect to your own databaseUrl.
 
 ## How to deploy
@@ -222,4 +222,4 @@ See `scripts/vercel-deploy.sh` for more info on how the deployment is done.
 
 ## Environment variables
 
-Lastly API requires an env var for `DATABASE_URL` and `CALCOM_LICENSE_KEY`
+Lastly API requires an env var for `POSTGRES_URL` and `CALCOM_LICENSE_KEY`

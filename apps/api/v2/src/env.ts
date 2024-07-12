@@ -7,7 +7,7 @@ export type Environment = {
   DATABASE_READ_URL: string;
   DATABASE_WRITE_URL: string;
   NEXTAUTH_SECRET: string;
-  DATABASE_URL: string;
+  POSTGRES_URL: string;
   JWT_SECRET: string;
   SENTRY_DSN: string;
   LOG_LEVEL: keyof typeof logLevels;

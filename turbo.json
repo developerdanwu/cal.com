@@ -71,7 +71,7 @@
         "NODE_ENV",
         "OPENAI_API_KEY",
         "SENDGRID_API_KEY",
-        "DATABASE_URL"
+        "POSTGRES_URL"
       ]
     },
     "@calcom/website#build": {
@@ -260,8 +260,8 @@
     "DAILY_SCALE_PLAN",
     "DAILY_WEBHOOK_SECRET",
     "DAILY_MEETING_ENDED_WEBHOOK_SECRET",
-    "DATABASE_DIRECT_URL",
-    "DATABASE_URL",
+    "POSTGRES_URL_NON_POOLING",
+    "POSTGRES_URL",
     "DEBUG",
     "E2E_TEST_APPLE_CALENDAR_EMAIL",
     "E2E_TEST_APPLE_CALENDAR_PASSWORD",

@@ -194,11 +194,11 @@ echo 'NEXT_PUBLIC_DEBUG=1' >> .env
 1. Configure environment variables in the `.env` file. Replace `<user>`, `<pass>`, `<db-host>`, and `<db-port>` with their applicable values
 
    ```
-   DATABASE_URL='postgresql://<user>:<pass>@<db-host>:<db-port>'
+   POSTGRES_URL='postgresql://<user>:<pass>@<db-host>:<db-port>'
    ```
 
    <details>
-   <summary>If you don't know how to configure the DATABASE_URL, then follow the steps here to create a quick local DB</summary>
+   <summary>If you don't know how to configure the POSTGRES_URL, then follow the steps here to create a quick local DB</summary>
 
    1. [Download](https://www.postgresql.org/download/) and install postgres in your local (if you don't have it already).
 
@@ -209,7 +209,7 @@ echo 'NEXT_PUBLIC_DEBUG=1' >> .env
    4. Inside the psql shell execute `\conninfo`. And you will get the following info.  
       ![image](https://user-images.githubusercontent.com/39329182/236612291-51d87f69-6dc1-4a23-bf4d-1ca1754e0a35.png)
 
-   5. Now extract all the info and add it to your DATABASE_URL. The url would look something like this
+   5. Now extract all the info and add it to your POSTGRES_URL. The url would look something like this
       `postgresql://postgres:postgres@localhost:5432/Your-DB-Name`. The port is configurable and does not have to be 5432.
 
    </details>
@@ -219,7 +219,7 @@ echo 'NEXT_PUBLIC_DEBUG=1' >> .env
    - [Setup postgres DB with railway.app](https://docs.railway.app/guides/postgresql)
    - [Setup postgres DB with render](https://render.com/docs/databases)
 
-1. Copy and paste your `DATABASE_URL` from `.env` to `.env.appStore`.
+1. Copy and paste your `POSTGRES_URL` from `.env` to `.env.appStore`.
 
 1. Set up the database using the Prisma schema (found in `packages/prisma/schema.prisma`)
 
@@ -374,7 +374,7 @@ You can deploy Cal.com on [Railway](https://railway.app) using the button above.
 
 Currently Vercel Pro Plan is required to be able to Deploy this application with Vercel, due to limitations on the number of serverless functions on the free plan.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcalcom%2Fcal.com&env=DATABASE_URL,NEXT_PUBLIC_WEBAPP_URL,NEXTAUTH_URL,NEXTAUTH_SECRET,CRON_API_KEY,CALENDSO_ENCRYPTION_KEY&envDescription=See%20all%20available%20env%20vars&envLink=https%3A%2F%2Fgithub.com%2Fcalcom%2Fcal.com%2Fblob%2Fmain%2F.env.example&project-name=cal&repo-name=cal.com&build-command=cd%20../..%20%26%26%20yarn%20build&root-directory=apps%2Fweb%2F)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcalcom%2Fcal.com&env=POSTGRES_URL,NEXT_PUBLIC_WEBAPP_URL,NEXTAUTH_URL,NEXTAUTH_SECRET,CRON_API_KEY,CALENDSO_ENCRYPTION_KEY&envDescription=See%20all%20available%20env%20vars&envLink=https%3A%2F%2Fgithub.com%2Fcalcom%2Fcal.com%2Fblob%2Fmain%2F.env.example&project-name=cal&repo-name=cal.com&build-command=cd%20../..%20%26%26%20yarn%20build&root-directory=apps%2Fweb%2F)
 
 ### Render
 
