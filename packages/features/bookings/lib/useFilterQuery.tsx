@@ -1,10 +1,9 @@
 import z from "zod";
 
-import dayjs, { type Dayjs } from "@calcom/dayjs";
+import dayjs from "@calcom/dayjs";
 import { queryNumberArray, useTypedQuery } from "@calcom/lib/hooks/useTypedQuery";
 import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
 
-const zodDay = z.custom<Dayjs>((val) => val instanceof dayjs, "Invalid date");
 // TODO: Move this to zod utils
 export const filterQuerySchema = z.object({
   teamIds: queryNumberArray.optional(),
@@ -14,7 +13,7 @@ export const filterQuerySchema = z.object({
   search: z.string().optional(),
   dateRange: z
     .string()
-    .or(z.tuple([z.date(), z.date()]))
+    .or(z.tuple([z.string(), z.string()]))
 
     .transform((a) => {
       if (typeof a === "string") {

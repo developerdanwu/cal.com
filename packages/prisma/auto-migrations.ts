@@ -14,12 +14,12 @@ const exec = promisify(execCb);
  * @see https://github.com/prisma/prisma/issues/4703#issuecomment-1447354363
  */
 async function main(): Promise<void> {
-  if (!process.env.DATABASE_URL) {
-    console.info("No DATABASE_URL found, skipping migrations");
+  if (!process.env.POSTGRES_URL) {
+    console.info("No POSTGRES_URL found, skipping migrations");
     return;
   }
-  if (!process.env.DATABASE_DIRECT_URL) {
-    console.info("No DATABASE_DIRECT_URL found, skipping migrations");
+  if (!process.env.POSTGRES_URL_NON_POOLING) {
+    console.info("No POSTGRES_URL_NON_POOLING found, skipping migrations");
     return;
   }
   if (!(await isPrismaAvailableCheck())) {

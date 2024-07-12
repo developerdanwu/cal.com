@@ -129,6 +129,7 @@ export type CalendarState = {
   hideHeader?: boolean;
 };
 
-export type CalendarComponentProps = CalendarPublicActions & CalendarState & { isPending?: boolean };
+export type CalendarComponentProps = CalendarPublicActions &
+  CalendarState & { isPending?: boolean; disableInitialScrollToCurrentTime?: boolean };
 
 export type CalendarStoreProps = CalendarComponentProps & CalendarPrivateActions;

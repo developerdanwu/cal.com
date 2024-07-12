@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import dayjs from "@calcom/dayjs";
 import { useTimePreferences } from "@calcom/features/bookings/lib";
@@ -11,7 +11,11 @@ function calculateMinutesFromStart(startHour: number, currentHour: number, curre
   return currentMinuteOfDay - startMinute;
 }
 
-export function CurrentTime() {
+export function CurrentTime({
+  disableInitialScrollToCurrentTime,
+}: {
+  disableInitialScrollToCurrentTime?: boolean;
+}) {
   const currentTimeRef = useRef<HTMLDivElement>(null);
   const [scrolledIntoView, setScrolledIntoView] = useState(false);
   const [currentTimePos, setCurrentTimePos] = useState<number | null>(null);
@@ -36,7 +40,7 @@ export function CurrentTime() {
     const minutesFromStart = calculateMinutesFromStart(startHour, currentHour, currentMinute);
     setCurrentTimePos(minutesFromStart);
 
-    if (!currentTimeRef.current || scrolledIntoView) return;
+    if (!currentTimeRef.current || scrolledIntoView || disableInitialScrollToCurrentTime) return;
     // Within a small timeout so element has time to render.
     setTimeout(() => {
       currentTimeRef?.current?.scrollIntoView({ block: "center" });

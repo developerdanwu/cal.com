@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { z } from "zod";
 
 import dayjs from "@calcom/dayjs";
+import type { filterQuerySchema } from "@calcom/features/bookings/lib/useFilterQuery";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import { useParamsWithFallback } from "@calcom/lib/hooks/useParamsWithFallback";
@@ -17,6 +18,7 @@ import useMeQuery from "@calcom/web/lib/hooks/useMeQuery";
 import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
 
 type BookingOutput = RouterOutputs["viewer"]["bookings"]["get"]["bookings"][0];
+type BookingListingStatus = z.infer<NonNullable<typeof filterQuerySchema>>["status"];
 
 type RecurringInfo = {
   recurringEventId: string | null;
@@ -113,7 +115,7 @@ export function BookingsCardView() {
       {query.status === "error" && (
         <Alert severity="error" title={t("something_went_wrong")} message={query.error.message} />
       )}
-      {(query.status === "pending" || query.isPaused) && <SkeletonLoader />}
+      {(query.status === "peznding" || query.isPaused) && <SkeletonLoader />}
       {query.status === "success" && !isEmpty && (
         <>
           {!!bookingsToday.length && status === "upcoming" && (

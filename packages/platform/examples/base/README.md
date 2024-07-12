@@ -13,7 +13,7 @@ DATABASE_READ_URL="postgresql://postgres:@localhost:5450/calendso"
 DATABASE_WRITE_URL="postgresql://postgres:@localhost:5450/calendso"
 API_URL="http://localhost"
 NEXTAUTH_SECRET="copy from .env of root of repository cloned in step 1"
-DATABASE_URL="postgresql://postgres:@localhost:5450/calendso"
+POSTGRES_URL="postgresql://postgres:@localhost:5450/calendso"
 JWT_SECRET="asjdijI1JIO12I3O89198jojioSAJDU"
 REDIS_URL="redis://localhost:6379"
 ```
