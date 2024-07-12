@@ -3773,15 +3773,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@calcom/basecamp3@workspace:packages/app-store/basecamp3":
-  version: 0.0.0-use.local
-  resolution: "@calcom/basecamp3@workspace:packages/app-store/basecamp3"
-  dependencies:
-    "@calcom/lib": "*"
-    "@calcom/types": "*"
-  languageName: unknown
-  linkType: soft
-
 "@calcom/cal-ai@workspace:packages/app-store/cal-ai":
   version: 0.0.0-use.local
   resolution: "@calcom/cal-ai@workspace:packages/app-store/cal-ai"
