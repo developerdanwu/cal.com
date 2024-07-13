@@ -75,8 +75,7 @@ export default function Bookings() {
               if (!value) {
                 return;
               }
-              // setBookingState(value);
-              setQuery("layout", value);
+              setQuery("layout", value as BookingState);
             }}
             options={[
               {

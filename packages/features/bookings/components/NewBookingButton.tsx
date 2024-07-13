@@ -57,13 +57,13 @@ function NewBookingDialog({ eventTypeGroup }: { eventTypeGroup: EventTypeGroup }
                     options={eventTypeGroup.eventTypes.map((type) => {
                       return {
                         label: type.title,
-                        value: type.id,
+                        value: String(type.id),
                       };
                     })}
                     value={value}
                     defaultValue={{
                       label: eventTypeGroup.eventTypes[0].title,
-                      value: eventTypeGroup.eventTypes[0].id,
+                      value: String(eventTypeGroup.eventTypes[0].id),
                     }}
                     onChange={(e) => {
                       if (e) {

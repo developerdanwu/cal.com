@@ -1,6 +1,5 @@
 import z from "zod";
 
-import dayjs from "@calcom/dayjs";
 import { queryNumberArray, useTypedQuery } from "@calcom/lib/hooks/useTypedQuery";
 import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
 
@@ -11,18 +10,7 @@ export const filterQuerySchema = z.object({
   status: z.enum(validStatuses).optional(),
   eventTypeIds: queryNumberArray.optional(),
   search: z.string().optional(),
-  dateRange: z
-    .string()
-    .or(z.tuple([z.string(), z.string()]))
-
-    .transform((a) => {
-      if (typeof a === "string") {
-        return a.split(",").map((date) => dayjs(date).toDate());
-      }
-
-      return a;
-    })
-    .optional(),
+  dateRange: z.array(z.string()).optional(),
 });
 
 export function useFilterQuery() {

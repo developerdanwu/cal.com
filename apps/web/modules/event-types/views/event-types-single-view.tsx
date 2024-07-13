@@ -131,13 +131,13 @@ const querySchema = z.object({
       "apps",
       "limits",
       "instant",
-      "recurring",
-      "team",
+      // "recurring",
+      // "team",
       "advanced",
-      "workflows",
-      "webhooks",
-      "ai",
-    ])
+      // "workflows",
+      // "webhooks",
+      // "ai",
+    ] as const)
     .optional()
     .default("setup"),
 });

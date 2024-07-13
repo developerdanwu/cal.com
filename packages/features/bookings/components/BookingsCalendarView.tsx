@@ -3,6 +3,7 @@ import { z } from "zod";
 import dayjs from "@calcom/dayjs";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { Calendar } from "@calcom/features/calendars/weeklyview/components/Calendar";
+import type { CalendarEvent } from "@calcom/features/calendars/weeklyview/types/events";
 import { useParamsWithFallback } from "@calcom/lib/hooks/useParamsWithFallback";
 import { trpc } from "@calcom/trpc";
 import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
@@ -11,7 +12,7 @@ const querySchema = z.object({
   status: z.enum(validStatuses),
 });
 
-export default function BookingsCalendarView(props) {
+export default function BookingsCalendarView() {
   const startDate = dayjs().toDate();
   const endDate = dayjs().add(6, "day").toDate();
   const { data: filterQuery } = useFilterQuery();
@@ -46,9 +47,7 @@ export default function BookingsCalendarView(props) {
         });
       });
       return acc;
-    }, []) || [];
-
-  console.log("TESTINGGG", test);
+    }, [] as CalendarEvent[]) || ([] as CalendarEvent[]);
 
   return (
     <div className="w-full overflow-hidden [--calendar-dates-sticky-offset:66px]">

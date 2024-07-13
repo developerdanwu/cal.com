@@ -1,6 +1,7 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import React, { useState } from "react";
 
+import dayjs from "@calcom/dayjs";
 import { PeopleFilter } from "@calcom/features/bookings/components/PeopleFilter";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { TeamsFilter } from "@calcom/features/filters/components/TeamsFilter";
@@ -21,18 +22,21 @@ export function FiltersContainer({ isFiltersVisible, status }: FiltersContainerP
   const [animationParentRef] = useAutoAnimate<HTMLDivElement>();
   const { removeAllQueryParams, data: query } = useFilterQuery();
   const [input, setInput] = useState(() => query.search || "");
-  const [{ startDate, endDate }, setDateRange] = useState<{ startDate: Date; endDate: Date }>(() => {
+  const [{ startDate, endDate }, setDateRange] = useState<{
+    startDate: Date;
+    endDate: Date | undefined;
+  }>(() => {
     if (query?.dateRange) {
-      const [startDate, endDate] = filter.dateRange;
+      const [startDate, endDate] = query.dateRange;
       return {
-        startDate,
-        endDate,
+        startDate: dayjs(startDate).toDate(),
+        endDate: dayjs(endDate).toDate(),
       };
     }
 
     return {
-      startDate: null,
-      endDate: null,
+      startDate: new Date(),
+      endDate: undefined,
     };
   });
   const { t } = useLocale();
@@ -45,7 +49,13 @@ export function FiltersContainer({ isFiltersVisible, status }: FiltersContainerP
           <EventTypeFilter />
           <TeamsFilter />
           {status === "all" ? (
-            <DateRangeFilter startDate={startDate} endDate={endDate} setDateRange={setDateRange} />
+            <DateRangeFilter
+              startDate={startDate}
+              endDate={endDate}
+              setDateRange={({ startDate, endDate }) => {
+                setDateRange({ startDate: startDate || new Date(), endDate });
+              }}
+            />
           ) : null}
           <Tooltip content={t("remove_filters")}>
             <Button
@@ -54,7 +64,7 @@ export function FiltersContainer({ isFiltersVisible, status }: FiltersContainerP
               onClick={() => {
                 removeAllQueryParams();
                 setInput("");
-                setDateRange({ startDate: null, endDate: null });
+                setDateRange({ startDate: new Date(), endDate: undefined });
               }}>
               {t("remove_filters")}
             </Button>

@@ -10,8 +10,8 @@ export const DateRangeFilter = ({
   setDateRange,
 }: {
   startDate: Date;
-  endDate: Date;
-  setDateRange: (dateRange: { startDate: Date; endDate: Date }) => void;
+  endDate?: Date;
+  setDateRange: (dateRange: { startDate: Date | undefined; endDate: Date | undefined }) => void;
 }) => {
   const { setQuery, removeByKey } = useFilterQuery();
 

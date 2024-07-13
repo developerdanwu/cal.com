@@ -32,6 +32,7 @@ const querySchema = z.object({
 });
 
 const descriptionByStatus: Record<NonNullable<BookingListingStatus>, string> = {
+  all: "all_bookings",
   upcoming: "upcoming_bookings",
   recurring: "recurring_bookings",
   past: "past_bookings",
@@ -115,7 +116,7 @@ export function BookingsCardView() {
       {query.status === "error" && (
         <Alert severity="error" title={t("something_went_wrong")} message={query.error.message} />
       )}
-      {(query.status === "peznding" || query.isPaused) && <SkeletonLoader />}
+      {(query.status === "pending" || query.isPaused) && <SkeletonLoader />}
       {query.status === "success" && !isEmpty && (
         <>
           {!!bookingsToday.length && status === "upcoming" && (
