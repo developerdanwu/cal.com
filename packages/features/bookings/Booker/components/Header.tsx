@@ -3,6 +3,7 @@ import { shallow } from "zustand/shallow";
 
 import dayjs from "@calcom/dayjs";
 import { useIsEmbed } from "@calcom/embed-core/embed-iframe";
+import { FormattedSelectedDateRange } from "@calcom/features/calendars/weeklyview/components/heading/SchedulerHeading";
 import { WEBAPP_URL } from "@calcom/lib/constants";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import { BookerLayouts } from "@calcom/prisma/zod-utils";
@@ -79,31 +80,10 @@ export function Header({
   }
   const endDate = selectedDate.add(layout === BookerLayouts.COLUMN_VIEW ? extraDays : extraDays - 1, "days");
 
-  const isSameMonth = () => {
-    return selectedDate.format("MMM") === endDate.format("MMM");
-  };
-
-  const isSameYear = () => {
-    return selectedDate.format("YYYY") === endDate.format("YYYY");
-  };
-  const formattedMonth = new Intl.DateTimeFormat(i18n.language ?? "en", { month: "short" });
-  const FormattedSelectedDateRange = () => {
-    return (
-      <h3 className="min-w-[150px] text-base font-semibold leading-4">
-        {formattedMonth.format(selectedDate.toDate())} {selectedDate.format("D")}
-        {!isSameYear() && <span className="text-subtle">, {selectedDate.format("YYYY")} </span>}-{" "}
-        {!isSameMonth() && formattedMonth.format(endDate.toDate())} {endDate.format("D")},{" "}
-        <span className="text-subtle">
-          {isSameYear() ? selectedDate.format("YYYY") : endDate.format("YYYY")}
-        </span>
-      </h3>
-    );
-  };
-
   return (
     <div className="border-default relative z-10 flex border-b px-5 py-4 ltr:border-l rtl:border-r">
       <div className="flex items-center gap-5 rtl:flex-grow">
-        <FormattedSelectedDateRange />
+        <FormattedSelectedDateRange selectedDate={selectedDate} endDate={endDate} />
         <ButtonGroup>
           <Button
             className="group rtl:ml-1 rtl:rotate-180"

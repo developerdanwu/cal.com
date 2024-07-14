@@ -1,10 +1,9 @@
 import { z } from "zod";
 
-import dayjs from "@calcom/dayjs";
+import { useBookingsCalendarView } from "@calcom/features/bookings/components/BookingsCalendarView/store";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { Calendar } from "@calcom/features/calendars/weeklyview/components/Calendar";
 import type { CalendarEvent } from "@calcom/features/calendars/weeklyview/types/events";
-import { useParamsWithFallback } from "@calcom/lib/hooks/useParamsWithFallback";
 import { trpc } from "@calcom/trpc";
 import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
 
@@ -13,18 +12,20 @@ const querySchema = z.object({
 });
 
 export default function BookingsCalendarView() {
-  const startDate = dayjs().toDate();
-  const endDate = dayjs().add(6, "day").toDate();
   const { data: filterQuery } = useFilterQuery();
-  const params = useParamsWithFallback();
-  const { status } = params ? querySchema.parse(params) : { status: "upcoming" as const };
+  const { selectedDate: startDate, endDate } = useBookingsCalendarView((state) => {
+    return {
+      selectedDate: state.selectedDate,
+      endDate: state.getEndDate(),
+    };
+  });
 
   const query = trpc.viewer.bookings.get.useInfiniteQuery(
     {
       limit: 20,
       filters: {
         ...filterQuery,
-        status: filterQuery.status ?? status,
+        status: filterQuery.status ?? "all",
       },
     },
     {
@@ -50,14 +51,14 @@ export default function BookingsCalendarView() {
     }, [] as CalendarEvent[]) || ([] as CalendarEvent[]);
 
   return (
-    <div className="w-full overflow-hidden [--calendar-dates-sticky-offset:66px]">
+    <div className="h-full [--calendar-dates-sticky-offset:66px]">
       <Calendar
+        hideHeader
         isPending={false}
-        disableInitialScrollToCurrentTime={true}
         gridCellsPerHour={60 / 120}
         events={test}
-        startDate={startDate}
-        endDate={endDate}
+        startDate={startDate.toDate()}
+        endDate={endDate.toDate()}
         startHour={0}
         endHour={23}
       />
