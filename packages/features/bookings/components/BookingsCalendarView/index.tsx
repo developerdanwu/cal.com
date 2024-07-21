@@ -1,15 +1,9 @@
-import { z } from "zod";
-
+import dayjs from "@calcom/dayjs";
 import { useBookingsCalendarView } from "@calcom/features/bookings/components/BookingsCalendarView/store";
 import { useFilterQuery } from "@calcom/features/bookings/lib/useFilterQuery";
 import { Calendar } from "@calcom/features/calendars/weeklyview/components/Calendar";
 import type { CalendarEvent } from "@calcom/features/calendars/weeklyview/types/events";
 import { trpc } from "@calcom/trpc";
-import { validStatuses } from "@calcom/web/modules/bookings/lib/validStatuses";
-
-const querySchema = z.object({
-  status: z.enum(validStatuses),
-});
 
 export default function BookingsCalendarView() {
   const { data: filterQuery } = useFilterQuery();
@@ -22,10 +16,11 @@ export default function BookingsCalendarView() {
 
   const query = trpc.viewer.bookings.get.useInfiniteQuery(
     {
-      limit: 20,
+      limit: 100,
       filters: {
         ...filterQuery,
         status: filterQuery.status ?? "all",
+        dateRange: [dayjs(startDate).toISOString(), dayjs(endDate).toISOString()],
       },
     },
     {
@@ -54,10 +49,10 @@ export default function BookingsCalendarView() {
     <div className="h-full [--calendar-dates-sticky-offset:66px]">
       <Calendar
         hideHeader
-        isPending={false}
+        isPending={query.isLoading}
         gridCellsPerHour={60 / 120}
         events={test}
-        startDate={startDate.toDate()}
+        startDate={dayjs(startDate).toDate()}
         endDate={endDate.toDate()}
         startHour={0}
         endHour={23}
