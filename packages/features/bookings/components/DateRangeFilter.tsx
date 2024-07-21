@@ -17,7 +17,10 @@ export const DateRangeFilter = ({
 
   useEffect(() => {
     if (startDate && endDate) {
-      setQuery("dateRange", [dayjs(startDate).toISOString(), dayjs(endDate).toISOString()]);
+      setQuery(
+        "dateRange",
+        `${dayjs(startDate).format("YYYY-MM-DD")},${dayjs(endDate).format("YYYY-MM-DD")}`
+      );
     } else {
       removeByKey("dateRange");
     }

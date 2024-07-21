@@ -17,7 +17,12 @@ type GetOptions = {
     teamIds?: number[] | undefined;
     userIds?: number[] | undefined;
     eventTypeIds?: number[] | undefined;
-    dateRange?: string[] | undefined;
+    dateRange?:
+      | {
+          start: Date;
+          end: Date;
+        }
+      | undefined;
   };
 };
 
@@ -29,8 +34,8 @@ const getAllUserBookings = async ({ ctx, filters, bookingListingByStatus, take, 
       ...(filters?.dateRange
         ? {
             startTime: {
-              gte: filters.dateRange[0],
-              lte: filters.dateRange[1],
+              gte: filters.dateRange.start,
+              lte: filters.dateRange.end,
             },
           }
         : {}),

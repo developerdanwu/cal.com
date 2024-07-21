@@ -46,12 +46,19 @@ export function BookingsCardView() {
   const { t } = useLocale();
   const params = useParamsWithFallback();
   const { status } = params ? querySchema.parse(params) : { status: "upcoming" as const };
+
+  console.log("DATERANGE", filterQuery);
   const query = trpc.viewer.bookings.get.useInfiniteQuery(
     {
       limit: 10,
       filters: {
         ...filterQuery,
         status: filterQuery.status ?? status,
+        // ...(filterQuery.dateRange && filterQuery.dateRange.length === 2
+        //   ? {
+        //       dateRange: [dayjs(filterQuery.dateRange[0]).toISOString(), dayjs(filterQuery[1]).toISOString()],
+        //     }
+        //   : {}),
       },
     },
     {

@@ -9,7 +9,12 @@ export const ZGetInputSchema = z.object({
     status: z.enum(validStatuses),
     eventTypeIds: z.number().array().optional(),
     search: z.string().optional(),
-    dateRange: z.array(z.string()).optional(),
+    dateRange: z
+      .object({
+        start: z.date(),
+        end: z.date(),
+      })
+      .optional(),
   }),
   limit: z.number().min(1).max(100).nullish(),
   cursor: z.number().nullish(), // <-- "cursor" needs to exist when using useInfiniteQuery, but can be any type

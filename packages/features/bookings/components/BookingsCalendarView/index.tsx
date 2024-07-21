@@ -20,7 +20,10 @@ export default function BookingsCalendarView() {
       filters: {
         ...filterQuery,
         status: filterQuery.status ?? "all",
-        dateRange: [dayjs(startDate).toISOString(), dayjs(endDate).toISOString()],
+        dateRange: {
+          start: dayjs(startDate).toDate(),
+          end: dayjs(endDate).toDate(),
+        },
       },
     },
     {
@@ -29,7 +32,8 @@ export default function BookingsCalendarView() {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
-  const test =
+
+  const events =
     query?.data?.pages?.reduce((acc, x) => {
       x.bookings.forEach((booking) => {
         acc.push({
@@ -51,7 +55,7 @@ export default function BookingsCalendarView() {
         hideHeader
         isPending={query.isLoading}
         gridCellsPerHour={60 / 120}
-        events={test}
+        events={events}
         startDate={dayjs(startDate).toDate()}
         endDate={endDate.toDate()}
         startHour={0}
